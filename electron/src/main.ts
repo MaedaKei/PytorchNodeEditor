@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import {spawn,ChildProcess} from 'child_process'
 
+console.log("Test Print !!!!!!!!!!!!!!!!!!");
 // バックエンドプロセスを管理する変数
 let pythonProcess: ChildProcess | null = null ;
 const isDev=!app.isPackaged;
