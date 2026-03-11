@@ -1,0 +1,22 @@
+{
+  "name": "pytorchnodeeditor",
+  "version": "1.0.0",
+  "description": "Node Editor for Pytorch",
+  "main": "electron/dist/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:electron\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:electron": "npm run build:electron && wait-on http://localhost:5173 && electron .",
+    "build:electron": "tsc -p electron/tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^40.8.0",
+    "typescript": "^5.9.3",
+    "wait-on": "^9.0.4"
+  }
+}
