@@ -35,12 +35,15 @@ function App() {
 export default App
 */
 function App(){
-  //const [count,setCount]=useState(0);
+  const [count,setCount]=useState(1);
   return (
     <>
       <div>
         <h1>初めてのReactだよ</h1>
       </div>
+      <button onClick={()=>setCount((prev,a=5)=>prev*a)}>
+         count is {count}
+      </button>
     </>
   )
 }
