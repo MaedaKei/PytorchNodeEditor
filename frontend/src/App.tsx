@@ -34,16 +34,25 @@ function App() {
 
 export default App
 */
+type PropsType={
+  count:number;
+  setCount:Function;
+}
+function Child({count,setCount}:PropsType){
+  return (
+    <>
+      <button onClick={()=>setCount((count:number)=>count+1)}>{count}</button>
+    </>
+  )
+}
 function App(){
-  const [count,setCount]=useState(1);
+  const [count,setCount]=useState(0);
   return (
     <>
       <div>
         <h1>初めてのReactだよ</h1>
       </div>
-      <button onClick={()=>setCount((prev,a=5)=>prev*a)}>
-         count is {count}
-      </button>
+      <Child count={count} setCount={setCount}></Child>
     </>
   )
 }
