@@ -5,3 +5,5 @@ SPAの予定
 UIエンジン(タブ・ペイン管理)：Dockview
 エディタ：Monacoエディタ
 Node：Reactflow
+Pythonコード生成：jinja2
+Reactflow Nodes/edges =( トポロジカルソート? )=> GraphIR =( jinja2 )=> Pythonコード
