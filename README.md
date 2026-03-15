@@ -7,3 +7,4 @@ UIエンジン(タブ・ペイン管理)：Dockview
 Node：Reactflow
 Pythonコード生成：jinja2
 Reactflow Nodes/edges =( トポロジカルソート? )=> GraphIR =( jinja2 )=> Pythonコード
+状態管理ライブラリ：Zustand
