@@ -5,10 +5,13 @@ import { themeDark,type DockviewTheme } from "dockview";
 import { PaneviewReact,type PaneviewReadyEvent } from "dockview";
 import { GridviewReact,type GridviewReadyEvent } from "dockview";
 import { Orientation } from "dockview";
+//CSSをモジュールとして読み込む
+import AppStyles from "./App.module.css";
+
 const Theme=themeDark;
 const DummyDockviewComponent=()=>{
     return (
-        <h5>this is dockview</h5>
+        <h6>this is dockview</h6>
     );
 }
 //中央部のDockview部分のセットアップ
@@ -38,7 +41,7 @@ function NodeDefineComponent(){
         });
     };
     return(
-        <div className="NodeDefineComponent">
+        <div className="NodeDefineComponent" style={{width:"100%",height:"100%"}}>
             <DockviewReact
                 theme={Theme}
                 components={DockviewComponents}
@@ -50,7 +53,7 @@ function NodeDefineComponent(){
 
 const DummyPaneviewComponent=()=>{
     return (
-        <h5>this is paneview</h5>
+        <h6>this is paneview</h6>
     )
 }
 const NodeListComponents={
@@ -73,7 +76,7 @@ function NodeListComponent(){
 
     };
     return (
-        <div className="NodeListComponent">
+        <div className="NodeListComponent" style={{width:"100%",height:"100%"}}>
             <PaneviewReact
                 className={Theme.className}
                 components={NodeListComponents}
@@ -85,15 +88,15 @@ function NodeListComponent(){
 
 function NodeTreeComponent(){
     return (
-        <div className="NodeTreeComponent">
-            <h5>Treeview Component</h5>
+        <div className="NodeTreeComponent" style={{width:"100%",height:"100%"}}>
+            <h6>Treeview Component</h6>
         </div>
     );
 }
 function NodePropertyTableComponent(){
     return (
-        <div className="NodePropertyTableComponent">
-            <h5>NodePropertyTableComponent</h5>
+        <div className="NodePropertyTableComponent" style={{width:"100%",height:"100%"}}>
+            <h6>NodePropertyTableComponent</h6>
         </div>
     );
 }
@@ -166,7 +169,7 @@ function MainLayout(){
 }
 export default function App(){
     return (
-        <div>
+        <div className={AppStyles.container}>
             <MainLayout />
         </div>
     );
