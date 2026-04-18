@@ -2,7 +2,8 @@
 // ここにメイン画面を実装していく
 import { DockviewReact,type DockviewReadyEvent } from "dockview";
 import { themeDark,type DockviewTheme } from "dockview";
-import { PaneviewReact,type PaneviewReadyEvent } from "dockview";
+//import { PaneviewReact,type PaneviewReadyEvent } from "dockview";
+import NodeListPaneview from "./components/NodeListPaneview/NodeListPaneview";
 import { GridviewReact,type GridviewReadyEvent } from "dockview";
 import { Orientation } from "dockview";
 //CSSをモジュールとして読み込む
@@ -50,7 +51,7 @@ function NodeDefineComponent(){
         </div>
     );
 }
-
+/*
 const DummyPaneviewComponent=()=>{
     return (
         <h6>this is paneview</h6>
@@ -85,6 +86,7 @@ function NodeListComponent(){
         </div>
     );
 }
+*/
 
 function NodeTreeComponent(){
     return (
@@ -104,7 +106,7 @@ function NodePropertyTableComponent(){
 //GridViewとして画面を構成
 const MainLayoutComponents={
     DockviewPanel:NodeDefineComponent,
-    PaneviewPanel:NodeListComponent,
+    PaneviewPanel:NodeListPaneview,//別ファイルに分離してみる
     TreeviewPanel:NodeTreeComponent,
     PropertyTablePanel:NodePropertyTableComponent,
 }
