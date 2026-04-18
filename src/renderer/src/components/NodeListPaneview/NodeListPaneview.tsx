@@ -1,5 +1,5 @@
 import {PaneviewReact,type PaneviewReadyEvent} from "dockview";
-import NodeListPaneviewStyles from "./NodeListPaneview.module.css";
+import Styles from "./NodeListPaneview.module.css";
 
 const DummyPaneviewComponent=()=>{
     return (
@@ -17,16 +17,16 @@ export default function NodeListPaneview(){
         API.addPanel({
             id:"StandardNodeList",
             component:"StandardNodeList",
-            title:"StandardNodeList"
+            title:"Standard"
         });
         API.addPanel({
             id:"CustomNodeList",
             component:"CustomNodeList",
-            title:"CustomNodeList",
+            title:"Custom",
         });
     };
     return (
-        <div className={NodeListPaneviewStyles.NodeListPaneview}>
+        <div className={Styles.NodeListPaneview}>
             <PaneviewReact
                 components={ComponentDictionary}
                 onReady={onReady}

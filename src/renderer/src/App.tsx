@@ -1,7 +1,8 @@
 //ここがアプリのエントリーポイント
 // ここにメイン画面を実装していく
-import { DockviewReact,type DockviewReadyEvent } from "dockview";
+//import { DockviewReact,type DockviewReadyEvent } from "dockview";
 import { themeDark,type DockviewTheme } from "dockview";
+import NodeDefineDockview from "./components/NodeDefineDockview/NodeDefineDockview";
 //import { PaneviewReact,type PaneviewReadyEvent } from "dockview";
 import NodeListPaneview from "./components/NodeListPaneview/NodeListPaneview";
 import { GridviewReact,type GridviewReadyEvent } from "dockview";
@@ -10,6 +11,7 @@ import { Orientation } from "dockview";
 import AppStyles from "./App.module.css";
 
 const Theme=themeDark;
+/*
 const DummyDockviewComponent=()=>{
     return (
         <h6>this is dockview</h6>
@@ -20,7 +22,7 @@ const DummyDockviewComponent=()=>{
 const DockviewComponents={
     ReactflowCanvas:DummyDockviewComponent,
     CodeEditor:DummyDockviewComponent
-}
+} 
 function NodeDefineComponent(){
     const onReady=(event:DockviewReadyEvent)=>{
         const API=event.api;
@@ -51,6 +53,8 @@ function NodeDefineComponent(){
         </div>
     );
 }
+*/
+
 /*
 const DummyPaneviewComponent=()=>{
     return (
@@ -105,7 +109,7 @@ function NodePropertyTableComponent(){
 
 //GridViewとして画面を構成
 const MainLayoutComponents={
-    DockviewPanel:NodeDefineComponent,
+    DockviewPanel:NodeDefineDockview,
     PaneviewPanel:NodeListPaneview,//別ファイルに分離してみる
     TreeviewPanel:NodeTreeComponent,
     PropertyTablePanel:NodePropertyTableComponent,
