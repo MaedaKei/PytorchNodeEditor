@@ -9,6 +9,7 @@ import  NodeTree from "./components/NodeTree/NodeTree";
 import NodePropertyTable from "./components/NodePropertyTable/NodePropertyTable";
 import { GridviewReact,type GridviewReadyEvent } from "dockview";
 import { Orientation } from "dockview";
+import MenuBar from "./components/Menubar/MenuBar";
 //CSSをモジュールとして読み込む
 import AppStyles from "./App.module.css";
 
@@ -175,12 +176,17 @@ function MainLayout(){
                 orientation={Orientation.HORIZONTAL}
             />
         </div>
-    )
+    );
 }
 export default function App(){
     return (
-        <div className={AppStyles.container}>
-            <MainLayout />
+        <div className={AppStyles.App}>
+            <div className={AppStyles.MenuBarContainer}>
+                <MenuBar />
+            </div>
+            <div className={AppStyles.MainLayoutContainer}>
+                <MainLayout />
+            </div>
         </div>
     );
 }

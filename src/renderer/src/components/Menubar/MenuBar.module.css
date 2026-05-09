@@ -1,0 +1,45 @@
+.MenuBar{
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    --MenuBarItemWidth:150px;/*メニューバーのボタン一つ当たりの横幅*/
+}
+.MenuBar>div{
+    width:var(--MenuBarItemWidth);
+    /*height:auto; div内の要素はドロップダウンの増減によって変わるので、高さは動的に変わるようにする*/
+    display:flex;
+    flex-direction: column;
+}
+/*メニューバーラベルのボタン*/
+.MenuBar>div>button{
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    color: rgb(172, 170, 170);
+}
+.MenuBar>div>button:hover{
+    background-color: rgb(46, 46, 46);
+    color:white;
+}
+/*メニューバードロップダウン*/
+.MenuBar>div>.Dropdown{
+    width:100%;
+    /*height:auto ここも可変高*/
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+.Dropdown>hr{
+    width: 100%;
+}
+.Dropdown>button{
+    width:100%;
+    height:25px;
+    background-color: black;
+    color: rgb(172, 170, 170);
+}
+.Dropdown>button:hover{
+    background-color: rgb(46, 46, 46);
+    color:white;
+}
