@@ -3,22 +3,27 @@
     height:100%;
     display: flex;
     flex-direction: row;
-    --MenuBarItemWidth:60px;/*メニューバーのボタン一つ当たりの横幅*/
+    --MenuBarButtonWidth:90px;/*メニューバーのボタン一つ当たりの横幅*/
+    --MenuBarButtonHeight:100%;/*メニューバーとして与えられた限りの高さに設定*/
+    --DropdownButtonWidth:120px;
+    --DropdownButtonHeight:25px;
     background-color: black;
     padding:1px;
 }
 .MenuBar>div{
     /*メニューラベルとドロップダウン一つごとのコンテナ*/
-    width:var(--MenuBarItemWidth);
+    width:var(--MenuBarButtonWidth);
+    height:var(--MenuBarButtonHeight);
     /*height:auto; div内の要素はドロップダウンの増減によって変わるので、高さは動的に変わるようにする*/
     display:flex;
+    position: relative;/*ドロップダウンの基準点とする*/
     flex-direction: column;
     background-color: black;
 }
 /*メニューバーラベルのボタン*/
 .MenuBar>div>button{
     width: 100%;
-    height: 30px;
+    height: 100%;
     background-color: black;
     color: rgb(172, 170, 170);
     border: none;
@@ -31,10 +36,12 @@
 /*メニューバードロップダウン*/
 .MenuBar>div>.Dropdown{
     width:200px;
-    /*height:auto ここも可変高*/
+    /*height:auto ここのたかさは可変*/
+    position: absolute;
+    top:100%;
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: rgb(16, 16, 16);
     z-index: 50;
     padding:2px;
     border-radius: 3px;
@@ -47,14 +54,14 @@
 }
 .Dropdown>button{
     width:100%;
-    height:25px;
+    height:var(--DropdownItemsHeight);
     background-color: black;
     font:bold 10px sans-serif; 
     color: rgb(172, 170, 170);
     text-align: left;
     border: none;
     border-radius: 3px;
-    padding: 5px;
+    padding: 3px;
 }
 .Dropdown>button:hover{
     background-color: rgb(46, 46, 46);
