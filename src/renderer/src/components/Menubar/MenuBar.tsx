@@ -18,9 +18,9 @@ const MENUS:MenuDef[]=[//MenuDefのリスト
         label:"File",
         items:[//ここからMenuItemDefのリスト
             {type:"item",label:"New Project",onClick:()=>alert("New Project")},
-            {type:"item",label:"Load Project",onClick:()=>alert("Load Project")},
+            {type:"item",label:"Open Project",onClick:()=>alert("Load Project")},
             {type:"separator"},
-            {type:"item",label:"Save",onClick:()=>alert("Save")}
+            {type:"item",label:"Save Project",onClick:()=>alert("Save")}
         ]
     },
     {
@@ -28,7 +28,7 @@ const MENUS:MenuDef[]=[//MenuDefのリスト
         items:[
             {type:"item",label:"Language",onClick:()=>alert("Language")},
             {type:"separator"},
-            {type:"item",label:"Dummy",onClick:()=>alert("Dummy")},
+            {type:"item",label:"BG Color",onClick:()=>alert("Dummy")},
         ]
     },
 ];

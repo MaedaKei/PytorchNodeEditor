@@ -40,6 +40,9 @@
     border-radius: 3px;
 }
 .Dropdown>hr{
+    border: none;
+    height:1px;
+    background-color: rgb(77, 77, 77);
     width: 100%;
 }
 .Dropdown>button{
