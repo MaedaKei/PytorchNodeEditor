@@ -24,7 +24,7 @@ const MENUS:MenuDef[]=[//MenuDefのリスト
         ]
     },
     {
-        label:"⚙ Setting",
+        label:"Setting",
         items:[
             {type:"item",label:"Language",onClick:()=>alert("Language")},
             {type:"separator"},
