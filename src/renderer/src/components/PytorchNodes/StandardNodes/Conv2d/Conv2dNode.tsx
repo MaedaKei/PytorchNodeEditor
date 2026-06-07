@@ -1,5 +1,6 @@
 import PytorchNodeBase from "../../PytorchNodeBase";
 import Styles from "./Conv2dNode.module.css";
+
 export default function Conv2dNode(){
     const NodeType="Conv2d";
     const InputNum=1;
