@@ -1,0 +1,41 @@
+.pytorchNodeBase{
+    --HandleContainerWidth:15px;
+    --NodeContentsContainerWidth:calc(100% - 2 * var(--HandleContainerWidth));
+
+    --HandleHeightMargin:5px;
+    --HandleGap:10px;
+    --HandleNum:1;/*ここはPytorchNodeBase.tsxから変更される変数となる*/
+    --MinHeight:50px;/* 高さはかならず50px以上になるようにする*/
+
+    width:150px;
+    height:max(calc(var(--HeightMargin) * 2 + var(--HandleGap) * (var(--HandleNum) - 1)),var(--MinHeight));
+    display: flex;
+    flex-direction: row;
+
+    background-color: silver;
+}
+
+.pytorchNodeBase>div.nodeContentsContainer{
+    width:var(--NodeContentsContainerWidth);
+    height: 100%;
+}
+
+.pytorchNodeBase>div.handleContainer{
+    width:var(--HandleContainerWidth);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /*子要素が均等に並ぶようにしする*/
+    /*上下にはある程度のマージンを入れて、ハンドルが上下端に被らないようにしたい*/
+    justify-content: space-evenly;
+}
+
+.pytorchNodeBase>div.handleContainer>.nodeHandle{
+    /*
+    Handleにデフォルトで働いているスタイルを解除しているようだ
+    真偽不明
+    */
+    position: relative;
+    top:auto;
+    transform: none;
+}
