@@ -26,8 +26,8 @@ export default function Conv2dNode(){
     return (
         <PytorchNodeBase InputNum={InputNum} OutputNum={OutputNum}>
             <div className={Styles.Conv2dInfomation}>
-                <h3>{NodeType}</h3>
-                <h3>{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</h3>
+                <h3 className="NodeTypeText">{NodeType}</h3>
+                <h3 className="IOchText">{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</h3>
             </div>
         </PytorchNodeBase>
     )

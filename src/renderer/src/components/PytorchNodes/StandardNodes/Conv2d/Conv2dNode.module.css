@@ -6,8 +6,15 @@
     color: black;
     background-color: rgb(152, 202, 186);
 }
-.Conv2dInfomation>h3{
+.Conv2dInfomation>h3.NodeTypeText{
     width:100%;
+    height:50%;
+    text-align: center;
+    font-weight: bold;
+}
+.Conv2dInfomation>h3.IOchText{
+    width:100%;
+    height:50%;
     text-align: center;
     font-weight: bold;
 }
