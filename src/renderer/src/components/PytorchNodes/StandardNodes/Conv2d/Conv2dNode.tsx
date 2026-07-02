@@ -27,8 +27,8 @@ export function Conv2dNodeOnCanvas(){
     return (
         <PytorchNodeBaseOnCanvas InputNum={InputNum} OutputNum={OutputNum}>
             <div className={Styles.Conv2dInfo}>
-                <h3 className="NodeTypeText">{NodeType}</h3>
-                <h3 className="IOchText">{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</h3>
+                <label>{NodeType}</label>
+                <label>{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</label>
             </div>
         </PytorchNodeBaseOnCanvas>
     )
@@ -60,8 +60,8 @@ export function Conv2dNodeOnDisplay(){
     return (
         <PytorchNodeBaseOnDisplay InputNum={InputNum} OutputNum={OutputNum}>
             <div className={Styles.Conv2dInfo}>
-                <h6 className="NodeTypeText">{NodeType}</h6>
-                <h6 className="IOchText">{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</h6>
+                <label className="NodeTypeText">{NodeType}</label>
+                <label className="IOchText">{DefaultProperties.inch}, {DefaultProperties.outch}</label>
             </div>
         </PytorchNodeBaseOnDisplay>
     )

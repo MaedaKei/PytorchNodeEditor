@@ -6,15 +6,10 @@
     color: black;
     background-color: rgb(152, 202, 186);
 }
-.Conv2dInfo>h6.NodeTypeText{
+.Conv2dInfo>label{
     width:100%;
     height:50%;
-    font:bold 3px sans-serif;
-    text-align: center;
-}
-.Conv2dInfo>h6.IOchText{
-    width:100%;
-    height:50%;
-    font:bold 3px sans-serif;
+    font-weight: bold;
+    font-family: sans-serif;
     text-align: center;
 }

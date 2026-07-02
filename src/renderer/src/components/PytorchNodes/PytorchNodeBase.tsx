@@ -59,27 +59,27 @@ export function PytorchNodeBaseOnDisplay({InputNum=1,OutputNum=1,children=<></>}
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
     return (
-        <div className={Styles.pytorchNodeBase} style={{"--HandleNum":MaxHandleNum} as React.CSSProperties}>
-            <div className="handleContainer">{/* targetハンドラをまとめた部分 */}
+        <div className={Styles.pytorchNodeBase}>
+            <div className={Styles.handleContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     /*InputNumに応じた個数となるtargetのHandleを描画*/
                     /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
                     Array.from({length:InputNum}).map((_,i)=>(
-                        <div className="dammyHandle"/>
+                        <div/>
                     ))
                 }
             </div>
 
-            <div className="nodeContentsContainer">{/*Pytorchノードのコンテンツ表示部分*/}
+            <div className={Styles.nodeContentsContainer}>{/*Pytorchノードのコンテンツ表示部分*/}
                 {children}
             </div>
 
-            <div className="handleContainer">{/* sourceハンドラをまとめた部分 */}
+            <div className={Styles.handleContainer}>{/* sourceハンドラをまとめた部分 */}
                 {
                     /*OutputNumに応じた個数となるsourceのHandleを描画*/
                     /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
                     Array.from({length:OutputNum}).map((_,i)=>(
-                        <div className="dammyHandle"/>
+                        <div/>
                     ))
                 }
             </div>
