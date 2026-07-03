@@ -1,6 +1,8 @@
 .pytorchNodeBase{
+    --handleNum:1;
     width:120px;
-    height:40px;
+    /*height:40px;*/
+    height:max(40px,(var(--handleNum) + 1) * 10px);
     display: flex;
     flex-direction: row;
     background-color: silver;

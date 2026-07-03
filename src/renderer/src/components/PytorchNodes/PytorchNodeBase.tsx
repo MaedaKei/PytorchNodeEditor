@@ -59,7 +59,7 @@ export function PytorchNodeBaseOnDisplay({InputNum=1,OutputNum=1,children=<></>}
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
     return (
-        <div className={Styles.pytorchNodeBase}>
+        <div className={Styles.pytorchNodeBase} >
             <div className={Styles.handleContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     /*InputNumに応じた個数となるtargetのHandleを描画*/
