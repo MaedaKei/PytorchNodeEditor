@@ -1,12 +1,14 @@
 import Styles from "./StandardNodesPane.module.css";
 /* StandardNodesのインポート*/
-import {Conv2dNodeOnDisplay} from "./Conv2d/Conv2dNode";
+import {Conv2dNodeOnPane} from "./Conv2d/Conv2dNode";
+import { LineNodeOnPane } from "./Linear/LinearNode";
 /* 
 Pytorchノードの一覧コンポーネント
 ドラッグアンドドロップもできるようにする必要があるが、どうしようか
 */
 const StandardNodes={
-    Conv2d:Conv2dNodeOnDisplay,
+    Conv2d:Conv2dNodeOnPane,
+    Linear:LineNodeOnPane,
 }
 export default function StandardNodesPane(){
     /* importした標準ノードを一覧として表示する*/

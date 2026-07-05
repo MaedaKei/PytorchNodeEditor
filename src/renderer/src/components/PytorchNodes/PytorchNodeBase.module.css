@@ -1,21 +1,28 @@
 .pytorchNodeBase{
     --handleNum:1;
+    --handlePhi:10px;
     width:120px;
     /*height:40px;*/
-    height:max(40px,(var(--handleNum) + 1) * 10px);
+    height:max(40px,(var(--handleNum) + 1) * var(--handlePhi));
     display: flex;
     flex-direction: row;
     background-color: silver;
     border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(185, 184, 184, 0.807);
+    transition: box-shadow 0.3s ease;
+}
+/*マウスホバー時の変化*/
+.pytorchNodeBase:hover{
+    box-shadow: 3px 3px 10px rgba(236, 96, 96, 0.807);
 }
 
 .nodeContentsContainer{
-    width:80%;
+    width:calc(100% - 2 * var(--handlePhi));
     height: 100%;
 }
 
 .handleContainer{
-    width:10%;
+    width:var(--handlePhi);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -36,8 +43,8 @@
 
 /*Canvas外にノードが配置されているときのdivHandleに対するCSS*/
 .handleContainer>div{
-    width:10px;
-    height:10px;
+    width:100%;
+    aspect-ratio: 1;
     border: 1px solid black;
     background-color: white;
     border-radius: 50%;

@@ -1,6 +1,12 @@
-import {PytorchNodeBaseOnCanvas,PytorchNodeBaseOnDisplay} from "../../PytorchNodeBase";
+import {PytorchNodeBaseOnCanvas,PytorchNodeBaseOnPane} from "../../PytorchNodeBase";
 import Styles from "./Conv2dNode.module.css";
-
+const DefaultProperties={
+        inch:2,
+        outch:2,
+        ksize:3,
+        padding:1,
+        stride:1,
+    };
 export function Conv2dNodeOnCanvas(){
     const NodeType="Conv2d";
     const InputNum=1;
@@ -16,25 +22,17 @@ export function Conv2dNodeOnCanvas(){
     */
     //Propertyテーブルと連動させるためにこのしたのオブジェクトはuseStateとしてstoreにいくはず
     //コード化するまでの仮のIDを設定し、これとプロパティオブジェクトを紐づける感じにしたい
-    const DefaultProperties={
-        inch:2,
-        outch:2,
-        ksize:3,
-        padding:1,
-        stride:1
-    };
     //ノードには入出力チャンネルなどのみ表示させる
     return (
         <PytorchNodeBaseOnCanvas InputNum={InputNum} OutputNum={OutputNum}>
             <div className={Styles.Conv2dInfo}>
                 <label>{NodeType}</label>
-                <label>{`${DefaultProperties.inch} -> ${DefaultProperties.outch}`}</label>
             </div>
         </PytorchNodeBaseOnCanvas>
     )
 }
 
-export function Conv2dNodeOnDisplay(){
+export function Conv2dNodeOnPane(){
     const NodeType="Conv2d";
     const InputNum=1;
     const OutputNum=1;
@@ -49,20 +47,12 @@ export function Conv2dNodeOnDisplay(){
     */
     //Propertyテーブルと連動させるためにこのしたのオブジェクトはuseStateとしてstoreにいくはず
     //コード化するまでの仮のIDを設定し、これとプロパティオブジェクトを紐づける感じにしたい
-    const DefaultProperties={
-        inch:2,
-        outch:2,
-        ksize:3,
-        padding:1,
-        stride:1
-    };
     //ノードには入出力チャンネルなどのみ表示させる
     return (
-        <PytorchNodeBaseOnDisplay InputNum={InputNum} OutputNum={OutputNum}>
+        <PytorchNodeBaseOnPane InputNum={InputNum} OutputNum={OutputNum}>
             <div className={Styles.Conv2dInfo}>
                 <label className="NodeTypeText">{NodeType}</label>
-                <label className="IOchText">{DefaultProperties.inch}, {DefaultProperties.outch}</label>
             </div>
-        </PytorchNodeBaseOnDisplay>
+        </PytorchNodeBaseOnPane>
     )
 }
