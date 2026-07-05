@@ -27,7 +27,7 @@ export function PytorchNodeBaseOnCanvas({InputNum=1,OutputNum=1,children=<></>}:
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
     return (
-        <div className={Styles.pytorchNodeBase} style={{"--HandleNum":MaxHandleNum} as React.CSSProperties}>
+        <div className={Styles.pytorchNodeBase} draggable="true" style={{"--HandleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.handleContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     /*InputNumに応じた個数となるtargetのHandleを描画*/
@@ -59,7 +59,7 @@ export function PytorchNodeBaseOnPane({InputNum=1,OutputNum=1,children=<></>}:Py
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
     return (
-        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
+        <div className={Styles.pytorchNodeBase} draggable="true" style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.handleContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     /*InputNumに応じた個数となるtargetのHandleを描画*/
