@@ -2,6 +2,8 @@ import {PaneviewReact,type PaneviewReadyEvent} from "dockview";
 import Styles from "./NodeListPaneview.module.css";
 
 import StandardNodesPane from "../PytorchNodes/StandardNodes/StandardNodesPane";
+import CustomNodesPane from "../PytorchNodes/CustomNodes/CustomNodesPane";
+import UtilityNodesPane from "../PytorchNodes/UtilityNodes/UtilityNodesPane";
 const DummyPaneviewComponent=()=>{
     return (
         <h6>Paneview from Components</h6>
@@ -10,7 +12,8 @@ const DummyPaneviewComponent=()=>{
 
 const ComponentDictionary={
     StandardNodePane:StandardNodesPane,
-    CustomNodePane:DummyPaneviewComponent,
+    CustomNodePane:CustomNodesPane,
+    UtilityNodePane:UtilityNodesPane,
 };
 
 export default function NodeListPaneview(){
@@ -19,12 +22,17 @@ export default function NodeListPaneview(){
         API.addPanel({
             id:"StandardNodePane",
             component:"StandardNodePane",
-            title:"Standard"
+            title:"Standard Node"
         });
         API.addPanel({
             id:"CustomNodePane",
             component:"CustomNodePane",
-            title:"Custom",
+            title:"Custom Node",
+        });
+        API.addPanel({
+            id:"UtilityNodePane",
+            component:"UtilityNodePane",
+            title:"Utility Node"
         });
     };
     return (
