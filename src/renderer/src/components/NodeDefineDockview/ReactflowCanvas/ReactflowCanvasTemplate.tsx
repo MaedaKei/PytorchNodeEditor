@@ -1,4 +1,9 @@
 import {useState, useCallback} from "react";
+/* 
+Controlsはミニマップやズーム、リフレームボタン
+Bacgroundは背景を導入する
+ズーム、パン機能自体は標準であるっぽい
+*/
 import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
@@ -40,8 +45,7 @@ function FlowChart(){
     return (
         <div style={{width:"100%",height:"100%"}}>
             <ReactFlow nodes={nodes} edges={edges} onConnect={onConnect} fitView>
-                <Controls/>
-                <Background/>
+                
             </ReactFlow>
         </div>
     )
