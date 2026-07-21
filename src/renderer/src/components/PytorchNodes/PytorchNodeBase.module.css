@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     background-color: silver;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     box-shadow: 3px 3px 10px rgba(185, 184, 184, 0.807);
     transition: box-shadow 0.3s ease;
     cursor:grab;
