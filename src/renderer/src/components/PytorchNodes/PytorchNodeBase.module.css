@@ -28,11 +28,7 @@
 .inputContainer{
     width:var(--handlePhi);
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    /*子要素が均等に並ぶようにしする*/
-    /*上下にはある程度のマージンを入れて、ハンドルが上下端に被らないようにしたい*/
-    justify-content: space-evenly;
+    
 }
 /*Canvas内にノードが配置されているときのHandleに対するCSS*/
 .inputContainer>.nodeHandle{

@@ -9,7 +9,7 @@ const DefaultProperties={
     };
 export function Conv2dNodeOnCanvas(){
     const NodeType="Conv2d";
-    const InputNum=2;
+    const InputNum=1;
     const OutputNum=1;
     /*
     Conv2dの固有プロパティを決める
