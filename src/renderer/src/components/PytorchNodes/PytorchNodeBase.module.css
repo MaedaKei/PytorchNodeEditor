@@ -42,15 +42,6 @@
 }
 
 /*Canvas外にノードが配置されているときのdivHandleに対するCSS*/
-.inputContainer>div{
-    width:var(--handlePhi);
-    height:var(--handlePhi);
-    border: 1px solid white;
-    background-color: black;
-    border-radius: 50%;
-    transform:translate(-50%, -50%);
-    position: absolute;
-}
 
 .outputContainer{
     width:var(--handlePhi);
@@ -69,15 +60,4 @@ Handleにデフォルトで働いているスタイルを解除しているよ�
     border-radius: 50%;
     transform: translate(50%,-50%);
     position:absolute;
-}
-
-/*Canvas外にノードが配置されているときのdivHandleに対するCSS*/
-.outputContainer>div{
-    width:var(--handlePhi);
-    height:var(--handlePhi);
-    border: 1px solid white;
-    background-color: black;
-    border-radius: 50%;
-    transform:translate(50%,-50%);
-    position: absolute;
 }

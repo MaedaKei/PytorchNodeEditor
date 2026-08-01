@@ -42,9 +42,9 @@ const initialNodes=[
 ];
 
 const initialEdges=[
-    {id:"e1-2",source:"1",target:"2"},
-    {id:"e2-conv2d",source:"2",target:"conv2d"},
-    {id:"econv2d-3",source:"conv2d",target:"3"},
+    {id:"e1-2",source:"1",target:"2",},
+    {id:"e2-conv2d",source:"2",target:"conv2d",},
+    {id:"econv2d-3",source:"conv2d",target:"3",},
 ];
 
 function FlowChart(){
@@ -58,7 +58,14 @@ function FlowChart(){
     );
     return (
         <div style={{width:"100%",height:"100%"}}>
-            <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onConnect={onConnect} fitView>
+            <ReactFlow 
+                nodes={nodes} 
+                edges={edges}
+                nodeTypes={nodeTypes} 
+                onConnect={onConnect} 
+                fitView
+                snapGrid={[10,10]}
+            >
                 <Controls></Controls>
                 <Background></Background>
             </ReactFlow>

@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { Handle,Position} from "@xyflow/react";
 import Styles from "./PytorchNodeBase.module.css";
+import NodeListPaneview from "../NodeListPaneview/NodeListPaneview";
 type PytorchNodeBaseProps={
     InputNum:number,
     OutputNum:number,
@@ -70,7 +71,7 @@ export function PytorchNodeBaseOnPane({InputNum=1,OutputNum=1,children=<></>}:Py
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     InputHandlePositionArray.map((position,i)=>(
-                        <div style={{ top: `${position}%` }}/>
+                        <div className={Styles.nodeHandle} style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
@@ -82,7 +83,7 @@ export function PytorchNodeBaseOnPane({InputNum=1,OutputNum=1,children=<></>}:Py
             <div className={Styles.outputContainer}>{/* sourceハンドラをまとめた部分 */}
                 {
                     OutputHandlePositionArray.map((position,i)=>(
-                        <div style={{ top: `${position}%` }}/>
+                        <div className={Styles.nodeHandle} style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
