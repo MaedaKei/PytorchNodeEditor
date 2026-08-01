@@ -10,30 +10,26 @@ type PytorchNodeBaseProps={
 }
 export function PytorchNodeBaseOnCanvas({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
     //InputNum,OutputNumの個数に応じてHandleの数が変化する
-    /*
-    検討事項1
-    ハンドル数が増えた場合にノードの高さも動的に変動させて、ハンドルが他のハンドルとかぶらないようにしなければならない
-    各ハンドル群用となるコンテナdivを用意して制御するか、直接パーセンテージをスタイルに打ち込むか
-    divで分離して制御を採用
-    検討事項2
-    CSSモジュールに分離するか、ここにstyleを直で書くか
-    propsの部分はCSS変数をこちらから書き換えることで反映可能。
-    個人的にはここにCSSを書くとコンポーネントが見づらくなると感じている。
-    その場合、InputNumとOutputNumをCSS側にも渡す→多いほうを基準としてノードの高さを調整という流れになる
-    ハンドラは等間隔で並べるようにCSSで設定する
-    */
     
     //InputNumとOutputNumで大きいほうを求めておく
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
+    //handle要素をここで直接％で位置を指定する
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
+    const TopMargin=5;//%
+    const BottomMargin=5;//%
+    const HandleAreaLength=100-TopMargin-BottomMargin;//%
+    
+    const InputHandleBoxLength=HandleAreaLength/InputNum;
+    const InputHandlePositionArray=Array.from({length:InputNum}).map((_,i)=>TopMargin+InputHandleBoxLength*(i+0.5));
+
+    const OutputHandleBoxLength=HandleAreaLength/OutputNum;
+    const OutputHandlePositionArray=Array.from({length:OutputNum}).map((_,i)=>TopMargin+OutputHandleBoxLength*(i+0.5));
     return (
         <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
-                    /*InputNumに応じた個数となるtargetのHandleを描画*/
-                    /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
-                    Array.from({length:InputNum}).map((_,i)=>(
-                        <Handle className={Styles.nodeHandle} id={`target_${i}`} key={`target_${i}`} type="target" position={Position.Left}/>
+                    InputHandlePositionArray.map((position,i)=>(
+                        <Handle className={Styles.nodeHandle} id={`target_${i}`} key={`target_${i}`} type="target" position={Position.Left} style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
@@ -44,10 +40,8 @@ export function PytorchNodeBaseOnCanvas({InputNum=1,OutputNum=1,children=<></>}:
 
             <div className={Styles.outputContainer}>{/* sourceハンドラをまとめた部分 */}
                 {
-                    /*OutputNumに応じた個数となるsourceのHandleを描画*/
-                    /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
-                    Array.from({length:OutputNum}).map((_,i)=>(
-                        <Handle className={Styles.nodeHandle} id={`source_${i}`} key={`source_${i}`} type="source" position={Position.Right}/>
+                    OutputHandlePositionArray.map((position,i)=>(
+                        <Handle className={Styles.nodeHandle} id={`source_${i}`} key={`source_${i}`} type="source" position={Position.Right} style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
@@ -56,30 +50,39 @@ export function PytorchNodeBaseOnCanvas({InputNum=1,OutputNum=1,children=<></>}:
 }
 
 export function PytorchNodeBaseOnPane({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
+    //InputNum,OutputNumの個数に応じてHandleの数が変化する
+    
+    //InputNumとOutputNumで大きいほうを求めておく
     const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
+    //handle要素をここで直接％で位置を指定する
     //このPytorchNodeがどこから呼び出されたかで表示方法を変える
+    const TopMargin=5;//%
+    const BottomMargin=5;//%
+    const HandleAreaLength=100-TopMargin-BottomMargin;//%
+    
+    const InputHandleBoxLength=HandleAreaLength/InputNum;
+    const InputHandlePositionArray=Array.from({length:InputNum}).map((_,i)=>TopMargin+InputHandleBoxLength*(i+0.5));
+
+    const OutputHandleBoxLength=HandleAreaLength/OutputNum;
+    const OutputHandlePositionArray=Array.from({length:OutputNum}).map((_,i)=>TopMargin+OutputHandleBoxLength*(i+0.5));
     return (
-        <div className={Styles.pytorchNodeBase} draggable="true" style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
+        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
-                    /*InputNumに応じた個数となるtargetのHandleを描画*/
-                    /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
-                    Array.from({length:InputNum}).map((_,i)=>(
-                        <div/>
+                    InputHandlePositionArray.map((position,i)=>(
+                        <div style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
-
+            
             <div className={Styles.nodeContentsContainer}>{/*Pytorchノードのコンテンツ表示部分*/}
                 {children}
             </div>
 
             <div className={Styles.outputContainer}>{/* sourceハンドラをまとめた部分 */}
                 {
-                    /*OutputNumに応じた個数となるsourceのHandleを描画*/
-                    /*個数に応じてハンドラの位置が調節されるよう、それに関するスタイルはCSSではなくこちらで設定する*/
-                    Array.from({length:OutputNum}).map((_,i)=>(
-                        <div/>
+                    OutputHandlePositionArray.map((position,i)=>(
+                        <div style={{ top: `${position}%` }}/>
                     ))
                 }
             </div>
