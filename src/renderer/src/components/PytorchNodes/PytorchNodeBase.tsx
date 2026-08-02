@@ -3,7 +3,6 @@
 import { ReactNode } from "react";
 import { Handle,Position} from "@xyflow/react";
 import Styles from "./PytorchNodeBase.module.css";
-import NodeListPaneview from "../NodeListPaneview/NodeListPaneview";
 type PytorchNodeBaseProps={
     InputNum:number,
     OutputNum:number,
