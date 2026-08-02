@@ -1,58 +1,36 @@
-import {PytorchNodeBaseOnCanvas,PytorchNodeBaseOnPane} from "../../PytorchNodeBase";
+import PytorchNodeBase from "../../PytorchNodeBase";
+import {PytorchNodeDefinition} from "../StandardNodeTypes";
 import Styles from "./Conv2dNode.module.css";
-const DefaultProperties={
+type Conv2dDefaultProperties={
+    inch:number,
+    outch:number,
+    ksize:number,
+    padding:number,
+    stride:number,
+}
+
+export const Conv2dNodeDefinition:PytorchNodeDefinition<Conv2dDefaultProperties>={
+    nodeType:"Conv2d",
+    inputNum:1,
+    outputNum:1,
+    properties:{
         inch:2,
         outch:2,
         ksize:3,
         padding:1,
         stride:1,
-    };
-export function Conv2dNodeOnCanvas(){
-    const NodeType="Conv2d";
-    const InputNum=2;
-    const OutputNum=1;
-    /*
-    Conv2dの固有プロパティを決める
-    Pytorchのプロパティ名に準拠させる
-    プロパティを網羅するのは無理なので、プロパティテーブルから名前、値を設定できるようにするが
-    デフォルトで設定されていた方が便利なモノはこっちで一応書いておく
-    プロパティテーブルでは自由に属性名を編集したり消したりできるが、
-    絶対に削除も編集もさせたくないものをこちらに書くこととする。
-    Conv2dの場合は以下のものとした
-    */
-    //Propertyテーブルと連動させるためにこのしたのオブジェクトはuseStateとしてstoreにいくはず
-    //コード化するまでの仮のIDを設定し、これとプロパティオブジェクトを紐づける感じにしたい
-    //ノードには入出力チャンネルなどのみ表示させる
+    }
+}
+
+
+function Conv2dNode(){
     return (
-        <PytorchNodeBaseOnCanvas InputNum={InputNum} OutputNum={OutputNum}>
+        <PytorchNodeBase InputNum={Conv2dNodeDefinition.inputNum} OutputNum={Conv2dNodeDefinition.outputNum}>
             <div className={Styles.Conv2dInfo}>
-                <label>{NodeType}</label>
+                <label className="NodeTypeText">{Conv2dNodeDefinition.nodeType}</label>
             </div>
-        </PytorchNodeBaseOnCanvas>
+        </PytorchNodeBase>
     )
 }
 
-export function Conv2dNodeOnPane(){
-    const NodeType="Conv2d";
-    const InputNum=2;
-    const OutputNum=1;
-    /*
-    Conv2dの固有プロパティを決める
-    Pytorchのプロパティ名に準拠させる
-    プロパティを網羅するのは無理なので、プロパティテーブルから名前、値を設定できるようにするが
-    デフォルトで設定されていた方が便利なモノはこっちで一応書いておく
-    プロパティテーブルでは自由に属性名を編集したり消したりできるが、
-    絶対に削除も編集もさせたくないものをこちらに書くこととする。
-    Conv2dの場合は以下のものとした
-    */
-    //Propertyテーブルと連動させるためにこのしたのオブジェクトはuseStateとしてstoreにいくはず
-    //コード化するまでの仮のIDを設定し、これとプロパティオブジェクトを紐づける感じにしたい
-    //ノードには入出力チャンネルなどのみ表示させる
-    return (
-        <PytorchNodeBaseOnPane InputNum={InputNum} OutputNum={OutputNum}>
-            <div className={Styles.Conv2dInfo}>
-                <label className="NodeTypeText">{NodeType}</label>
-            </div>
-        </PytorchNodeBaseOnPane>
-    )
-}
+export default Conv2dNode;

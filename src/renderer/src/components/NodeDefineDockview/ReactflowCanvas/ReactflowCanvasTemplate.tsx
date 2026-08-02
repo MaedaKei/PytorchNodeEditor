@@ -1,17 +1,18 @@
 import {useState, useCallback} from "react";
+import {NodeEnvContext} from "./NodeEnvContext";
 /* 
 Controlsはミニマップやズーム、リフレームボタン
 Bacgroundは背景を導入する
 ズーム、パン機能自体は標準であるっぽい
 */
 import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge } from "@xyflow/react";
-import { Conv2dNodeOnCanvas } from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
+import Conv2dNode from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
 import "@xyflow/react/dist/style.css";
 /*
 カスタムノードをノードとして登録してみる
 */
 const nodeTypes={
-    Conv2d:Conv2dNodeOnCanvas,
+    Conv2d:Conv2dNode,
 }
 /* サンプルコードを実行してみる*/
 const initialNodes=[
@@ -57,19 +58,21 @@ function FlowChart(){
         [setEdges]
     );
     return (
-        <div style={{width:"100%",height:"100%"}}>
-            <ReactFlow 
-                nodes={nodes} 
-                edges={edges}
-                nodeTypes={nodeTypes} 
-                onConnect={onConnect} 
-                fitView
-                snapGrid={[10,10]}
-            >
-                <Controls></Controls>
-                <Background></Background>
-            </ReactFlow>
-        </div>
+        <NodeEnvContext.Provider value={true}>{/* Canvas上にあることを示す */}
+            <div style={{width:"100%",height:"100%"}}>
+                <ReactFlow 
+                    nodes={nodes} 
+                    edges={edges}
+                    nodeTypes={nodeTypes} 
+                    onConnect={onConnect} 
+                    fitView
+                    snapGrid={[10,10]}
+                >
+                    <Controls></Controls>
+                    <Background></Background>
+                </ReactFlow>
+            </div>
+        </NodeEnvContext.Provider>
     )
 }
 

@@ -1,34 +1,28 @@
-import {PytorchNodeBaseOnCanvas,PytorchNodeBaseOnPane} from "../../PytorchNodeBase";
+import PytorchNodeBase from "../../PytorchNodeBase";
+import {PytorchNodeDefinition} from "../StandardNodeTypes";
 import Styles from "./LinearNode.module.css";
-const DefaultProperties={
+type LinearDefaultProperties={
+    inch:number,
+    outch:number,
+}
+export const LinearNodeDefinition:PytorchNodeDefinition<LinearDefaultProperties>={
+    nodeType:"Linear",
+    inputNum:1,
+    outputNum:1,
+    properties:{
         inch:2,
         outch:2,
-        ksize:3,
-        padding:1,
-        stride:1,
-    };
-export function LineNodeOnCanvas(){
-    const NodeType="Linear";
-    const InputNum=1;
-    const OutputNum=1;
+    }
+}
+
+function LinearNode(){
     return (
-        <PytorchNodeBaseOnCanvas InputNum={InputNum} OutputNum={OutputNum}>
+        <PytorchNodeBase InputNum={LinearNodeDefinition.inputNum} OutputNum={LinearNodeDefinition.outputNum}>
             <div className={Styles.LinearInfo}>
-                <label>{NodeType}</label>
+                <label>{LinearNodeDefinition.nodeType}</label>
             </div>
-        </PytorchNodeBaseOnCanvas>
+        </PytorchNodeBase>
     )
 }
 
-export function LineNodeOnPane(){
-    const NodeType="Linear";
-    const InputNum=1;
-    const OutputNum=1;
-    return (
-        <PytorchNodeBaseOnPane InputNum={InputNum} OutputNum={OutputNum}>
-            <div className={Styles.LinearInfo}>
-                <label>{NodeType}</label>
-            </div>
-        </PytorchNodeBaseOnPane>
-    )
-}
+export default LinearNode;
