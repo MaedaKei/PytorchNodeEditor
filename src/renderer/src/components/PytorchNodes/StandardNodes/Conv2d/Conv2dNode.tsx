@@ -13,7 +13,7 @@ export const Conv2dNodeDefinition:PytorchNodeDefinition<Conv2dDefaultProperties>
     nodeType:"Conv2d",
     inputNum:1,
     outputNum:1,
-    properties:{
+    defaultProperties:{
         inch:2,
         outch:2,
         ksize:3,
@@ -21,7 +21,6 @@ export const Conv2dNodeDefinition:PytorchNodeDefinition<Conv2dDefaultProperties>
         stride:1,
     }
 }
-
 
 function Conv2dNode(){
     return (

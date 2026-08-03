@@ -49,12 +49,12 @@ const initialEdges=[
 ];
 
 function FlowChart(){
-    const [nodes,setNodes]=useNodesState(initialNodes);
-    const [edges,setEdges]=useEdgesState(initialEdges);
+    const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
+    const [edges,setEdges,onEdgesChange]=useEdgesState(initialEdges);
 
     //接続処理
     const onConnect=useCallback(
-        (params:any)=>setEdges((eds)=>addEdge(params,eds)),
+        (connection:any)=>setEdges((eds)=>addEdge(connection,eds)),
         [setEdges]
     );
     return (
@@ -63,6 +63,8 @@ function FlowChart(){
                 <ReactFlow 
                     nodes={nodes} 
                     edges={edges}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
                     nodeTypes={nodeTypes} 
                     onConnect={onConnect} 
                     fitView

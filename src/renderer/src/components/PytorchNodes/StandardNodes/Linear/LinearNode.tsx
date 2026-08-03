@@ -9,7 +9,7 @@ export const LinearNodeDefinition:PytorchNodeDefinition<LinearDefaultProperties>
     nodeType:"Linear",
     inputNum:1,
     outputNum:1,
-    properties:{
+    defaultProperties:{
         inch:2,
         outch:2,
     }

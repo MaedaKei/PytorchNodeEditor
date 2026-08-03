@@ -44,6 +44,7 @@ type PytorchNodeBaseProps={
     InputNum:number,
     OutputNum:number,
     children:ReactNode,//NodeTypeごとの固有の部分
+    nodeType?:string,//NodeTypeの文字列を表示するためのもの
 }
 function PytorchNodeBase({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
     const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
