@@ -23,13 +23,13 @@ function usePortPositions(InputNum:number,OutputNum:number){
 }
 
 /* PytorchNodeBase */
-type PytorchNodeBaseProps={
+type PytorchNodeCanvasProps={
     InputNum:number,
     OutputNum:number,
     children:ReactNode,//NodeTypeごとの固有の部分
 }
 //Canvas用のPytorchNodeフレーム
-export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
+export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeCanvasProps){
     const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
     return (
         <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
@@ -54,10 +54,17 @@ export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>}:Pytorc
     )
 }
 //Pane用のPytorchNodeフレーム
-export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
+type PytorchNodePaneProps=PytorchNodeCanvasProps & {
+    nodeType:string,
+}
+export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>,nodeType}:PytorchNodePaneProps){
     const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
+    const onDragStart=(event:React.DragEvent)=>{
+        event.dataTransfer.setData("application/reactflow", nodeType);//HTML5のDrag&Drop APIで、ドラッグ中のデータを保持するために使う
+        event.dataTransfer.effectAllowed = "move";//ドラッグ中のカーソルの形状を指定するために使う
+    }
     return (
-        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
+        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties} draggable onDragStart={onDragStart}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     InputHandlePositionArray.map((position,i)=>(
@@ -79,23 +86,23 @@ export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>}:PytorchN
     )
 }
 
-type CreatePytorchNodeProps={
+type CreatePytorchNodeConfig={
     NodeType:string,
     InputNum:number,
     OutputNum:number,
     UniqueContents:()=>ReactNode,//NodeTypeごとの固有の部分
 }
-export function createPytorchNode(props:CreatePytorchNodeProps){
+export function createPytorchNode(Config:CreatePytorchNodeConfig){
     return {
+        Canvas:()=>(
+            <PytorchNodeCanvas InputNum={Config.InputNum} OutputNum={Config.OutputNum}>
+                <Config.UniqueContents/>
+            </PytorchNodeCanvas>
+        ),
         Pane:()=>(
-            <PytorchNodePane InputNum={props.InputNum} OutputNum={props.OutputNum}>
-                {props.UniqueContents()}
+            <PytorchNodePane InputNum={Config.InputNum} OutputNum={Config.OutputNum} nodeType={Config.NodeType}>
+                <Config.UniqueContents/>
             </PytorchNodePane>
         ),
-        Canvas:()=>(
-            <PytorchNodeCanvas InputNum={props.InputNum} OutputNum={props.OutputNum}>
-                {props.UniqueContents()}
-            </PytorchNodeCanvas>
-        )
     }
 }
