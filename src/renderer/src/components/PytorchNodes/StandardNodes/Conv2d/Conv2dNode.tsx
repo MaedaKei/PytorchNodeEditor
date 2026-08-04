@@ -1,35 +1,42 @@
-import PytorchNodeBase from "../../PytorchNodeBase";
+import {createPytorchNode} from "../../PytorchNodeBase";
 import {PytorchNodeDefinition} from "../StandardNodeTypes";
 import Styles from "./Conv2dNode.module.css";
-type Conv2dDefaultProperties={
+//Conv2dノードのデフォルトプロパティ
+//プロパティテーブルから項目を追加・削除することができるが、ここにある項目は削除不可
+//ノードがCanvasに置かれたとき、以下の項目・初期値は自動的に設定される
+type DefaultProperties={
     inch:number,
     outch:number,
-    ksize:number,
-    padding:number,
+    kernel_size:number,
     stride:number,
+    padding:number,
 }
 
-export const Conv2dNodeDefinition:PytorchNodeDefinition<Conv2dDefaultProperties>={
+const NodeDefinition:PytorchNodeDefinition<DefaultProperties>={
+    //以下の３つの項目は、カスタムノードでは変動する可能性あり
     nodeType:"Conv2d",
     inputNum:1,
     outputNum:1,
+    //defaultPropertiesは、Nodesのdataプロパティに格納される。ノードがCanvasに置かれたとき、以下の項目・初期値は自動的に設定される
     defaultProperties:{
         inch:2,
         outch:2,
-        ksize:3,
-        padding:1,
+        kernel_size:3,
         stride:1,
+        padding:1,
     }
 }
 
-function Conv2dNode(){
+function UniqueContents(){
     return (
-        <PytorchNodeBase InputNum={Conv2dNodeDefinition.inputNum} OutputNum={Conv2dNodeDefinition.outputNum}>
-            <div className={Styles.Conv2dInfo}>
-                <label className="NodeTypeText">{Conv2dNodeDefinition.nodeType}</label>
-            </div>
-        </PytorchNodeBase>
+        <div className={Styles.Conv2dInfo}>
+            <label>{NodeDefinition.nodeType}</label>
+        </div>
     )
 }
-
-export default Conv2dNode;
+export const {Pane:Conv2dNodePane,Canvas:Conv2dNodeCanvas}=createPytorchNode({
+    NodeType:NodeDefinition.nodeType,
+    InputNum:NodeDefinition.inputNum,
+    OutputNum:NodeDefinition.outputNum,
+    UniqueContents:() => <UniqueContents/>,
+});

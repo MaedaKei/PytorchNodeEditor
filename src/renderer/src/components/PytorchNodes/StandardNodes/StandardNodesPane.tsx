@@ -1,15 +1,15 @@
 import Styles from "./StandardNodesPane.module.css";
 import {NodeEnvContext} from "../../NodeDefineDockview/ReactflowCanvas/NodeEnvContext";
 /* StandardNodesのインポート*/
-import Conv2dNode from "./Conv2d/Conv2dNode";
-import LinearNode from "./Linear/LinearNode";
+import {Conv2dNodePane} from "./Conv2d/Conv2dNode";
+import {LinearNodePane} from "./Linear/LinearNode";
 /* 
 Pytorchノードの一覧コンポーネント
 ドラッグアンドドロップもできるようにする必要があるが、どうしようか
 */
 const StandardNodes={
-    Conv2d:Conv2dNode,
-    Linear:LinearNode,
+    Conv2d: Conv2dNodePane,
+    Linear: LinearNodePane,
 }
 export default function StandardNodesPane(){
     /* importした標準ノードを一覧として表示する*/

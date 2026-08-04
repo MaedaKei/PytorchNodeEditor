@@ -1,8 +1,6 @@
 // PytorchNodeの共通部分の定義を行う
 // ラッパーみたいなもの
 import { ReactNode } from "react";
-import { useContext } from "react";
-import { NodeEnvContext } from "../NodeDefineDockview/ReactflowCanvas/NodeEnvContext";
 import { Handle,Position} from "@xyflow/react";
 import Styles from "./PytorchNodeBase.module.css";
 
@@ -24,36 +22,21 @@ function usePortPositions(InputNum:number,OutputNum:number){
     return {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray};
 }
 
-/* Handleコンポーネント(描画切り替え機能付き)*/
-type NodeHandle={
-    type:"source"|"target",
-    topPercent:number,
-    id:string,
-}
-function Nodehandle({type,topPercent,id}:NodeHandle){
-    const isOnCanvas=useContext(NodeEnvContext);//Canvas上にあるかPane上にあるかをチェックする
-    if(isOnCanvas){
-        return <Handle className={Styles.nodeHandle} id={id} type={type} position={type==="source"?Position.Right:Position.Left} style={{ top: `${topPercent}%` }}/>;
-    }else{
-        return <div className={Styles.nodeHandle} style={{ top: `${topPercent}%` }}/>;
-    }
-}
-
 /* PytorchNodeBase */
 type PytorchNodeBaseProps={
     InputNum:number,
     OutputNum:number,
     children:ReactNode,//NodeTypeごとの固有の部分
-    nodeType?:string,//NodeTypeの文字列を表示するためのもの
 }
-function PytorchNodeBase({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
+//Canvas用のPytorchNodeフレーム
+export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
     const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
     return (
         <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     InputHandlePositionArray.map((position,i)=>(
-                        <Nodehandle type="target" topPercent={position} id={`target_${i}`} key={`target_${i}`}/>
+                        <Handle className={Styles.nodeHandle} type="target" position={Position.Left} style={{ top: `${position}%` }} id={`target_${i}`} key={`target_${i}`}/>
                     ))
                 }
             </div>
@@ -63,12 +46,56 @@ function PytorchNodeBase({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBase
             <div className={Styles.outputContainer}>{/* sourceハンドラをまとめた部分 */}
                 {
                     OutputHandlePositionArray.map((position,i)=>(
-                        <Nodehandle type="source" topPercent={position} id={`source_${i}`} key={`source_${i}`}/>
+                        <Handle className={Styles.nodeHandle} type="source" position={Position.Right} style={{ top: `${position}%` }} id={`source_${i}`} key={`source_${i}`}/>
                     ))
                 }
             </div>
         </div>
     )
 }
-/* ここで外に公開*/
-export default PytorchNodeBase;
+//Pane用のPytorchNodeフレーム
+export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeBaseProps){
+    const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
+    return (
+        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
+            <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
+                {
+                    InputHandlePositionArray.map((position,i)=>(
+                        <div className={Styles.nodeHandle} style={{ top: `${position}%` }} key={`target_${i}`}/>
+                    ))
+                }
+            </div>
+            <div className={Styles.nodeContentsContainer}>{/*Pytorchノードのコンテンツ表示部分*/}
+                {children}
+            </div>
+            <div className={Styles.outputContainer}>{/* sourceハンドラをまとめた部分 */}
+                {
+                    OutputHandlePositionArray.map((position,i)=>(
+                        <div className={Styles.nodeHandle} style={{ top: `${position}%` }} key={`source_${i}`}/>
+                    ))
+                }
+            </div>
+        </div>
+    )
+}
+
+type CreatePytorchNodeProps={
+    NodeType:string,
+    InputNum:number,
+    OutputNum:number,
+    UniqueContents:()=>ReactNode,//NodeTypeごとの固有の部分
+}
+export function createPytorchNode(props:CreatePytorchNodeProps){
+    return {
+        Pane:()=>(
+            <PytorchNodePane InputNum={props.InputNum} OutputNum={props.OutputNum}>
+                {props.UniqueContents()}
+            </PytorchNodePane>
+        ),
+        Canvas:()=>(
+            <PytorchNodeCanvas InputNum={props.InputNum} OutputNum={props.OutputNum}>
+                {props.UniqueContents()}
+            </PytorchNodeCanvas>
+        )
+    }
+}
