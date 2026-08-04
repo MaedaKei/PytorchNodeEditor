@@ -64,6 +64,7 @@ export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>,nodeType}
         event.dataTransfer.effectAllowed = "move";//ドラッグ中のカーソルの形状を指定するために使う
     }
     return (
+        //PytorchNodePaneは手動でdraggableにする必要がある。
         <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties} draggable onDragStart={onDragStart}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
