@@ -1,5 +1,7 @@
+//ノードのプロパティの型
+export type PytorchNodeProperty=Record<string,unknown>;
 //ノードの定義データの共通化
-export type PytorchNodeDefinition<DefaultProperties=Record<string,unknown>>={
+export type PytorchNodeDefinition<DefaultProperties=PytorchNodeProperty>={
     /* 各ノードの見た目に関わる部分*/
     nodeType:string,//ノードの種類,
     inputNum:number,//入力の数

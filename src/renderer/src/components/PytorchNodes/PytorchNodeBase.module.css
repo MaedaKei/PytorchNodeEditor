@@ -1,3 +1,4 @@
+/*ノードベースに対するCSS*/
 .pytorchNodeBase{
     --handleNum:1;
     --handlePhi:10px;
@@ -12,6 +13,15 @@
     transition: box-shadow 0.3s ease;
     cursor:grab;
 }
+/*ノードが選択状態の時の変化*/
+.selected {
+    /*border:2px solid rgb(204, 0, 255);*/
+    background-color:rgb(204, 0, 255);
+    transition: background-color 0.1s ease;
+    /*box-shadow: 3px 3px 10px rgba(204, 0, 255, 0.807);*/
+}
+
+
 /*マウスホバー時の変化*/
 .pytorchNodeBase:hover{
     box-shadow: 3px 3px 10px rgba(236, 96, 96, 0.807);
@@ -24,6 +34,7 @@
     width:calc(100% - 2 * var(--handlePhi));
     height: 100%;
 }
+
 
 .inputContainer{
     width:var(--handlePhi);
@@ -60,4 +71,8 @@ Handleにデフォルトで働いているスタイルを解除しているよ�
     border-radius: 50%;
     position:absolute;
     transform: translate(50%,-50%);
+}
+.selected .nodeHandle{
+    border-color: rgb(204, 0, 255);
+    transition: border-color 0.1s ease;
 }

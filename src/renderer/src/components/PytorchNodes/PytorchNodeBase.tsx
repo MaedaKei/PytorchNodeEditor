@@ -27,12 +27,13 @@ type PytorchNodeCanvasProps={
     InputNum:number,
     OutputNum:number,
     children:ReactNode,//NodeTypeごとの固有の部分
+    selected?:boolean,//あってもなくてもいい？うけとってもうけとらなくてもいい
 }
 //Canvas用のPytorchNodeフレーム
-export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>}:PytorchNodeCanvasProps){
+export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>,selected=false}:PytorchNodeCanvasProps){
     const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
     return (
-        <div className={Styles.pytorchNodeBase} style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
+        <div className={`${Styles.pytorchNodeBase} ${selected?Styles.selected:""}`}style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
                 {
                     InputHandlePositionArray.map((position,i)=>(
@@ -95,8 +96,9 @@ type CreatePytorchNodeConfig={
 }
 export function createPytorchNode(Config:CreatePytorchNodeConfig){
     return {
-        Canvas:()=>(
-            <PytorchNodeCanvas InputNum={Config.InputNum} OutputNum={Config.OutputNum}>
+        //このカッコの中身はReactflowCanvasから勝手に渡されてくる情報
+        Canvas:({selected}:{selected?:boolean})=>(
+            <PytorchNodeCanvas InputNum={Config.InputNum} OutputNum={Config.OutputNum} selected={selected}>
                 <Config.UniqueContents/>
             </PytorchNodeCanvas>
         ),
