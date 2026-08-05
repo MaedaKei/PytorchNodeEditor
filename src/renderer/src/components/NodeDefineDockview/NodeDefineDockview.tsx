@@ -1,6 +1,6 @@
 import { DockviewReact,type DockviewReadyEvent } from "dockview";
 import {themeDark,type DockviewTheme} from "dockview";
-import FlowChart from "./ReactflowCanvas/ReactflowCanvasTemplate";
+import ReactflowCanvas from "./ReactflowCanvas/ReactflowCanvasTemplate";
 import Styles from "./NodeDefineDockview.module.css";
 const DummyDockviewComponent=()=>{
     return (
@@ -8,7 +8,7 @@ const DummyDockviewComponent=()=>{
     );
 };
 const ComponentDictionary={
-    ReactflowCanvas:FlowChart,
+    ReactflowCanvas:ReactflowCanvas,
     CodeEditor:DummyDockviewComponent,
 }
 export default function NodeDefineComponent(){
