@@ -4,7 +4,7 @@ Controlsはミニマップやズーム、リフレームボタン
 Bacgroundは背景を導入する
 ズーム、パン機能自体は標準であるっぽい
 */
-import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge,useReactFlow,ReactFlowProvider } from "@xyflow/react";
+import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge,useReactFlow,ReactFlowProvider, Connection, reconnectEdge } from "@xyflow/react";
 import { Node,Edge } from "@xyflow/react";
 import { Conv2dNodeCanvas} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
 import { LinearNodeCanvas } from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
@@ -69,9 +69,14 @@ function ReactflowCanvasInner(){
     const {screenToFlowPosition}=useReactFlow();
 
     //接続処理
-    const onConnect=useCallback((connection:any)=>{
+    const onConnect=useCallback((connection:Connection)=>{
         setEdges((eds)=>addEdge(connection,eds));
-    },[setEdges])
+    },[setEdges]);
+    //接続修正処理
+    const onReconnect=useCallback((oldEdge:Edge,newConnection:Connection)=>{
+        setEdges((eds)=>reconnectEdge(oldEdge,newConnection,eds));
+    },[setEdges]);
+    
     //Dropイベントを許可する門番的なモノ
     const onDragOver=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
@@ -104,6 +109,7 @@ function ReactflowCanvasInner(){
                 onEdgesChange={onEdgesChange}
                 nodeTypes={nodeTypes} 
                 onConnect={onConnect} 
+                onReconnect={onReconnect}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
                 fitView
