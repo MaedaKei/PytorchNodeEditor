@@ -1,0 +1,9 @@
+/* エッジの見た目はこのCSSで追加 */
+.react-flow__edge.selected .react-flow__edge-path {
+    stroke: rgb(205, 0, 255);
+    stroke-width: 3;
+}
+
+.react-flow__edge-path {
+    transition: stroke 0.15s, stroke-width 0.15s;
+}

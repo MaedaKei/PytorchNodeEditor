@@ -9,6 +9,7 @@ import { Node,Edge } from "@xyflow/react";
 import { Conv2dNodeCanvas} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
 import { LinearNodeCanvas } from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
 import "@xyflow/react/dist/style.css";
+import "./ReactflowCanvasTemplate.css";
 /*
 カスタムノードをノードとして登録してみる
 */
