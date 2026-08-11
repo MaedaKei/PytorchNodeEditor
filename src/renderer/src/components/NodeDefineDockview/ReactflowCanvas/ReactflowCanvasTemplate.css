@@ -1,0 +1,8 @@
+/*公開されているCSS変数を上書きする*/
+.react-flow {
+    --xy-edge-stroke-selected: rgb(204, 0, 255);
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  /*stroke: #ff0072;*/
+  stroke-width: 2.5;
+}

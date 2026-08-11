@@ -115,6 +115,7 @@ function ReactflowCanvasInner(){
                 onDrop={onDrop}
                 fitView
                 snapGrid={[10,10]}
+                defaultEdgeOptions={{animated:true}}
             >
                 <Controls></Controls>
                 <Background></Background>
