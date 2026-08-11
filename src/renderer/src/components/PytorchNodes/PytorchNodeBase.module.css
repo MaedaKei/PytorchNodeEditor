@@ -76,3 +76,27 @@ Handleにデフォルトで働いているスタイルを解除しているよ�
     border-color: rgb(204, 0, 255);
     transition: border-color 0.1s ease;
 }
+
+/*接続エッジ数警告バッジ用スタイル*/
+.warningBadge{
+    position:absolute;
+    width:var(--handlePhi);
+    height:var(--handlePhi);
+    border-radius:10%;
+    background-color: #facc15;
+    border:1px solid #ca8a04;
+    font-size:10px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    pointer-events:auto;
+    z-index: 10;
+}
+
+.inputContainer .warningBadge{
+    transform:translate(50%,-50%);
+}
+.outputContainer .warningBadge{
+    transform:translate(-50%,-50%);
+}
