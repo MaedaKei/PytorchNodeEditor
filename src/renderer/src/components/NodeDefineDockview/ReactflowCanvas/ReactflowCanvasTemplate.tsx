@@ -92,11 +92,12 @@ function ReactflowCanvasInner(){
             x:event.clientX,
             y:event.clientY,
         });
+        const newNodeID=getNodeId(nodeType);
         const newNode={
-            id:getNodeId(nodeType),
+            id:newNodeID,
             type:nodeType,
             position,
-            data:{label:nodeType}//今は空
+            data:{label:newNodeID}//今は空
         } 
 
         setNodes((nds)=>nds.concat(newNode));//setNodesに関数を渡した場合は「setNodesが呼ばれた"その瞬間"に、Reactが把握している、最新のnodes配列」がndsに自動で入る。
