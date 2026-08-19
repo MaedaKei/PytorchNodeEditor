@@ -1,9 +1,9 @@
 import {PaneviewReact,type PaneviewReadyEvent} from "dockview";
 import Styles from "./NodeListPaneview.module.css";
 
-import StandardNodesPane from "../PytorchNodes/StandardNodes/StandardNodesPane";
-import CustomNodesPane from "../PytorchNodes/CustomNodes/CustomNodesPane";
-import UtilityNodesPane from "../PytorchNodes/UtilityNodes/UtilityNodesPane";
+import StandardNodesPane from "./StandardNodePane/StandardNodesPane";
+import CustomNodesPane from "./CustomNodePane/CustomNodesPane";
+import UtilityNodesPane from "./UtilityNodepane/UtilityNodesPane";
 const DummyPaneviewComponent=()=>{
     return (
         <h6>Paneview from Components</h6>

@@ -6,16 +6,16 @@ Bacgroundは背景を導入する
 */
 import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge,useReactFlow,ReactFlowProvider, Connection, reconnectEdge } from "@xyflow/react";
 import { Node,Edge } from "@xyflow/react";
-import { Conv2dNodeCanvas} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
-import { LinearNodeCanvas } from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
+import { CanvasNode as Conv2dNode} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
+import { CanvasNode as LinearNode } from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
 import "@xyflow/react/dist/style.css";
 import "./ReactflowCanvasTemplate.css";
 /*
 カスタムノードをノードとして登録してみる
 */
 const nodeTypes={
-    Conv2d:Conv2dNodeCanvas,
-    Linear:LinearNodeCanvas,
+    Conv2d:Conv2dNode,
+    Linear:LinearNode,
 }
 /* サンプルコードを実行してみる*/
 type PytorchNodeProperties=Record<string,unknown>;

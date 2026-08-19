@@ -1,21 +1,22 @@
 // PytorchNodeの共通部分の定義を行う
 // ラッパーみたいなもの
 import { ReactNode } from "react";
-import { Handle,Position, useNodeConnections} from "@xyflow/react";
+import { Handle,NodeProps,Position, useNodeConnections} from "@xyflow/react";
+import { PytorchNodeData, PytorchNodeProps } from "./StandardNodes/StandardNodeTypes";
 import Styles from "./PytorchNodeBase.module.css";
 
 
 /* 位置計算ロジック*/
-function usePortPositions(InputNum:number,OutputNum:number){
-    const MaxHandleNum=InputNum>OutputNum?InputNum:OutputNum;
+function usePortPositions(inputNum:number,outputNum:number){
+    const MaxHandleNum=inputNum>outputNum?inputNum:outputNum;
     const TopMargin=5;//%
     const BottomMargin=5;//%
     const HandleAreaLength=100-TopMargin-BottomMargin;//%
 
-    const TargetHandleBoxLength=HandleAreaLength/InputNum;
-    const InputHandlePositionArray=Array.from({length:InputNum}).map((_,i)=>TopMargin+TargetHandleBoxLength*(i+0.5));
-    const OutputHandleBoxLength=HandleAreaLength/OutputNum;
-    const OutputHandlePositionArray=Array.from({length:OutputNum}).map((_,i)=>TopMargin+OutputHandleBoxLength*(i+0.5));
+    const TargetHandleBoxLength=HandleAreaLength/inputNum;
+    const InputHandlePositionArray=Array.from({length:inputNum}).map((_,i)=>TopMargin+TargetHandleBoxLength*(i+0.5));
+    const OutputHandleBoxLength=HandleAreaLength/outputNum;
+    const OutputHandlePositionArray=Array.from({length:outputNum}).map((_,i)=>TopMargin+OutputHandleBoxLength*(i+0.5));
     //MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArrayを返す
     //MaxHandleNumはCSS変数として使うために返す
     return {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray};
@@ -53,16 +54,18 @@ function CanvasNodeHandle({type,position,id,topPercent}:CanvasNodeHandleProps){
     )
 }
 /* PytorchNodeBase */
-type PytorchNodeCanvasProps={
-    InputNum:number,
-    OutputNum:number,
-    children:ReactNode,//NodeTypeごとの固有の部分
-    selected?:boolean,//あってもなくてもいい？うけとってもうけとらなくてもいい
+type NodePropsBase={
+    inputNum:number,
+    outputNum:number,
+    children:ReactNode,
+}
+type CanvasNodeProps=NodePropsBase&{
+    selected:boolean,//select状態を受け取るため
 }
 
 //Canvas用のPytorchNodeフレーム
-export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>,selected=false}:PytorchNodeCanvasProps){
-    const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
+export function PytorchNodeCanvas({inputNum=1,outputNum=1,children=<></>,selected=false}:CanvasNodeProps){
+    const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(inputNum,outputNum);
     return (
         <div className={`${Styles.pytorchNodeBase} ${selected?Styles.selected:""}`}style={{"--handleNum":MaxHandleNum} as React.CSSProperties}>
             <div className={Styles.inputContainer}>{/* targetハンドラをまとめた部分 */}
@@ -97,13 +100,13 @@ export function PytorchNodeCanvas({InputNum=1,OutputNum=1,children=<></>,selecte
     )
 }
 //Pane用のPytorchNodeフレーム
-type PytorchNodePaneProps=PytorchNodeCanvasProps & {
-    nodeType:string,
+type PaneNodeProps=NodePropsBase & {
+    pytorchModule:string,
 }
-export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>,nodeType}:PytorchNodePaneProps){
-    const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(InputNum,OutputNum);
+export function PytorchNodePane({inputNum=1,outputNum=1,children=<></>,pytorchModule}:PaneNodeProps){
+    const {MaxHandleNum,InputHandlePositionArray,OutputHandlePositionArray}=usePortPositions(inputNum,outputNum);
     const onDragStart=(event:React.DragEvent)=>{
-        event.dataTransfer.setData("application/reactflow", nodeType);//HTML5のDrag&Drop APIで、ドラッグ中のデータを保持するために使う
+        event.dataTransfer.setData("application/reactflow", pytorchModule);//HTML5のDrag&Drop APIで、ドラッグ中のデータを保持するために使う
         event.dataTransfer.effectAllowed = "move";//ドラッグ中のカーソルの形状を指定するために使う
     }
     return (
@@ -129,25 +132,28 @@ export function PytorchNodePane({InputNum=1,OutputNum=1,children=<></>,nodeType}
         </div>
     )
 }
-
-type CreatePytorchNodeConfig={
-    NodeType:string,
-    InputNum:number,
-    OutputNum:number,
-    UniqueContents:()=>ReactNode,//NodeTypeごとの固有の部分
+/*
+type CreateConfig={
+    DefinitionInfo:PytorchNodeDefinition,
+    UniqueContents:(props:{nodeData?:PytorchNodeData})=>ReactNode,//NodeTypeごとの固有の部分
 }
-export function createPytorchNode(Config:CreatePytorchNodeConfig){
+export function createPytorchNode(Config:CreateConfig){
+    const DefinitionInfo=Config.DefinitionInfo;
+    const inputNum=DefinitionInfo.inputNum;
+    const outputNum=DefinitionInfo.outputNum;
+    const nodeType=DefinitionInfo.nodeType;
     return {
         //このカッコの中身はReactflowCanvasから勝手に渡されてくる情報
-        Canvas:({selected}:{selected?:boolean})=>(
-            <PytorchNodeCanvas InputNum={Config.InputNum} OutputNum={Config.OutputNum} selected={selected}>
-                <Config.UniqueContents/>
+        Canvas:({data, selected}:PytorchNodeProps)=>(
+            <PytorchNodeCanvas inputNum={inputNum} outputNum={outputNum} selected={selected}>
+                <Config.UniqueContents nodeData={data}/>
             </PytorchNodeCanvas>
         ),
         Pane:()=>(
-            <PytorchNodePane InputNum={Config.InputNum} OutputNum={Config.OutputNum} nodeType={Config.NodeType}>
+            <PytorchNodePane inputNum={inputNum} outputNum={outputNum} nodeType={nodeType}>
                 <Config.UniqueContents/>
             </PytorchNodePane>
         ),
     }
 }
+*/
