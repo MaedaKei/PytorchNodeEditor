@@ -6,16 +6,25 @@ Bacgroundは背景を導入する
 */
 import { ReactFlow,Controls,Background,useNodesState,useEdgesState,addEdge,useReactFlow,ReactFlowProvider, Connection, reconnectEdge } from "@xyflow/react";
 import { Node,Edge } from "@xyflow/react";
-import { CanvasNode as Conv2dNode} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
-import { CanvasNode as LinearNode } from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
+import { CanvasNode as Conv2dNode, DefaultData as Conv2dDefaultData} from "../../PytorchNodes/StandardNodes/Conv2d/Conv2dNode";
+import { CanvasNode as LinearNode, DefaultData as LinearDefaultData} from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
 import "@xyflow/react/dist/style.css";
 import "./ReactflowCanvasTemplate.css";
+import { PytorchNode } from "../../PytorchNodes/StandardNodes/StandardNodeTypes";
 /*
 カスタムノードをノードとして登録してみる
 */
 const nodeTypes={
     Conv2d:Conv2dNode,
     Linear:LinearNode,
+}
+const DefaultDataRegistry={
+    Conv2d:Conv2dDefaultData,
+    Linear:LinearDefaultData
+}
+//オブジェクトのKeyをチェックして保証する関数
+function isValidPytorchModule(key:string):key is keyof typeof DefaultDataRegistry{
+    return key in DefaultDataRegistry;
 }
 /* サンプルコードを実行してみる*/
 type PytorchNodeProperties=Record<string,unknown>;
@@ -55,14 +64,14 @@ function FlowChart(){
 export default FlowChart;
 */
 let idCountObject:Record<string,number>={};//NodeTypeごとにidを管理するためのオブジェクト
-function getNodeId(nodeType:string){
+function getNodeId(pytorchModule:string){
     //NodeTypeのKeyが存在しない場合は初期化する
-    if(!(nodeType in idCountObject)){
-        idCountObject[nodeType]=0;
+    if(!(pytorchModule in idCountObject)){
+        idCountObject[pytorchModule]=0;
     }
-    const Id=idCountObject[nodeType];
-    idCountObject[nodeType]+=1;
-    return `${nodeType}_${Id}`;
+    const Id=idCountObject[pytorchModule];
+    idCountObject[pytorchModule]+=1;
+    return `${pytorchModule}_${Id}`;
 }
 function ReactflowCanvasInner(){
     const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
@@ -86,22 +95,26 @@ function ReactflowCanvasInner(){
     //Dropによるノード追加
     const onDrop=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
-        const nodeType=event.dataTransfer.getData("application/reactflow");
-        if(!nodeType)return;//Paneview以外からのドロップは無視する
+        const pytorchModule=event.dataTransfer.getData("application/reactflow");
+        //チェックエリア
+        if(!pytorchModule)return;//Paneview以外からのドロップは無視する
+        if(!isValidPytorchModule(pytorchModule))return;//PaneviewからのドロップだけどDefaultDataRegistryにない＝importされてな可能性あり
+
+
         const position=screenToFlowPosition({
             x:event.clientX,
             y:event.clientY,
         });
-        const newNodeID=getNodeId(nodeType);
-        const newNode={
+        const newNodeID=getNodeId(pytorchModule);
+        const newNode:PytorchNode={
             id:newNodeID,
-            type:nodeType,
+            type:pytorchModule,
             position,
-            data:{label:newNodeID}//今は空
+            data:DefaultDataRegistry[pytorchModule]
         } 
 
         setNodes((nds)=>nds.concat(newNode));//setNodesに関数を渡した場合は「setNodesが呼ばれた"その瞬間"に、Reactが把握している、最新のnodes配列」がndsに自動で入る。
-    },[screenToFlowPosition,setNodes])
+    },[screenToFlowPosition,setNodes]);
     return (
         <div style={{width:"100%",height:"100%"}}>
             <ReactFlow 
