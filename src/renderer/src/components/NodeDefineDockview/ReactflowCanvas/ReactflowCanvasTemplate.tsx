@@ -10,7 +10,7 @@ import { CanvasNode as Conv2dNode, DefaultData as Conv2dDefaultData} from "../..
 import { CanvasNode as LinearNode, DefaultData as LinearDefaultData} from "../../PytorchNodes/StandardNodes/Linear/LinearNode";
 import "@xyflow/react/dist/style.css";
 import "./ReactflowCanvasTemplate.css";
-import { PytorchNode } from "../../PytorchNodes/StandardNodes/StandardNodeTypes";
+import { PytorchNode } from "../../PytorchNodes/StandardNodeTypes";
 /*
 カスタムノードをノードとして登録してみる
 */
@@ -20,16 +20,14 @@ const nodeTypes={
 }
 const DefaultDataRegistry={
     Conv2d:Conv2dDefaultData,
-    Linear:LinearDefaultData
+    Linear:LinearDefaultData,
 }
 //オブジェクトのKeyをチェックして保証する関数
 function isValidPytorchModule(key:string):key is keyof typeof DefaultDataRegistry{
     return key in DefaultDataRegistry;
 }
 /* サンプルコードを実行してみる*/
-type PytorchNodeProperties=Record<string,unknown>;
-type NodeInfomation=Node<PytorchNodeProperties>
-const initialNodes:NodeInfomation[]=[];
+const initialNodes:PytorchNode[]=[];
 
 const initialEdges:Edge[]=[];
 /*
@@ -122,9 +120,9 @@ function ReactflowCanvasInner(){
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
-                nodeTypes={nodeTypes} 
                 onConnect={onConnect} 
                 onReconnect={onReconnect}
+                nodeTypes={nodeTypes} 
                 onDragOver={onDragOver}
                 onDrop={onDrop}
                 fitView

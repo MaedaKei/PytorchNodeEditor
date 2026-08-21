@@ -2,7 +2,7 @@
 // ラッパーみたいなもの
 import { ReactNode } from "react";
 import { Handle,NodeProps,Position, useNodeConnections} from "@xyflow/react";
-import { PytorchNodeData, PytorchNodeProps } from "./StandardNodes/StandardNodeTypes";
+import { PytorchNodeData, PytorchNodeProps } from "./StandardNodeTypes";
 import Styles from "./PytorchNodeBase.module.css";
 
 

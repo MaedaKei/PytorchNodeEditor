@@ -1,5 +1,5 @@
 import {PytorchNodeCanvas, PytorchNodePane} from "../../PytorchNodeBase";
-import {ModuleDefinition, PytorchNodeData, PytorchNodeProps } from "../StandardNodeTypes";
+import {ModuleDefinition, PytorchNodeData, PytorchNodeProps } from "../../StandardNodeTypes";
 import Styles from "./Conv2dNode.module.css";
 //Conv2dノードのデフォルトプロパティ
 //プロパティテーブルから項目を追加・削除することができるが、ここにある項目は削除不可

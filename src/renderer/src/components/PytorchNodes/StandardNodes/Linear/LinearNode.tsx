@@ -1,5 +1,5 @@
 import {PytorchNodeCanvas, PytorchNodePane} from "../../PytorchNodeBase";
-import {ModuleDefinition, PytorchNodeData, PytorchNodeProps} from "../StandardNodeTypes";
+import {ModuleDefinition, PytorchNodeData, PytorchNodeProps} from "../../StandardNodeTypes";
 import Styles from "./LinearNode.module.css";
 
 export const DefaultData:PytorchNodeData={

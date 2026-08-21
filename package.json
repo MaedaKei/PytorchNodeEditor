@@ -14,7 +14,8 @@
   "dependencies": {
     "@xyflow/react": "^12.10.2",
     "dockview": "^5.2.0",
-    "electron": "^40.8.5"
+    "electron": "^40.8.5",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
