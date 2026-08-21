@@ -11,6 +11,7 @@ import { CanvasNode as LinearNode, DefaultData as LinearDefaultData} from "../..
 import "@xyflow/react/dist/style.css";
 import "./ReactflowCanvasTemplate.css";
 import { PytorchNode } from "../../PytorchNodes/StandardNodeTypes";
+import { usePytorchGraphStore} from "../../../store/PytrochGraphState";
 /*
 カスタムノードをノードとして登録してみる
 */
@@ -27,9 +28,9 @@ function isValidPytorchModule(key:string):key is keyof typeof DefaultDataRegistr
     return key in DefaultDataRegistry;
 }
 /* サンプルコードを実行してみる*/
-const initialNodes:PytorchNode[]=[];
+//const initialNodes:PytorchNode[]=[];
 
-const initialEdges:Edge[]=[];
+//const initialEdges:Edge[]=[];
 /*
 function FlowChart(){
     const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
@@ -72,10 +73,21 @@ function getNodeId(pytorchModule:string){
     return `${pytorchModule}_${Id}`;
 }
 function ReactflowCanvasInner(){
-    const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
-    const [edges,setEdges,onEdgesChange]=useEdgesState(initialEdges);
-    const {screenToFlowPosition}=useReactFlow();
+    //const [nodes,setNodes,onNodesChange]=useNodesState(initialNodes);
+    //const [edges,setEdges,onEdgesChange]=useEdgesState(initialEdges);
+    //Zustandのものを使ってみる
+    const nodes=usePytorchGraphStore((state)=>state.nodes);
+    const setNodes=usePytorchGraphStore((state)=>state.setNodes);
+    const onNodesChange=usePytorchGraphStore((state)=>state.onNodesChange);
+    const edges=usePytorchGraphStore((state)=>state.edges);
+    //const setEdges=usePytorchGraphStore((state)=>state.setEdges);
+    const onEdgesChange=usePytorchGraphStore((state)=>state.onEdgesChange);
 
+    const onConnect=usePytorchGraphStore((state)=>state.onConnect);
+    const onReconnect=usePytorchGraphStore((state)=>state.onReconnect);
+
+    const {screenToFlowPosition}=useReactFlow();
+    /*
     //接続処理
     const onConnect=useCallback((connection:Connection)=>{
         setEdges((eds)=>addEdge(connection,eds));
@@ -84,7 +96,7 @@ function ReactflowCanvasInner(){
     const onReconnect=useCallback((oldEdge:Edge,newConnection:Connection)=>{
         setEdges((eds)=>reconnectEdge(oldEdge,newConnection,eds));
     },[setEdges]);
-    
+    */
     //Dropイベントを許可する門番的なモノ
     const onDragOver=useCallback((event:React.DragEvent)=>{
         event.preventDefault();

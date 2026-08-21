@@ -1,5 +1,6 @@
 import { create } from "zustand"; 
 import { PytorchNode } from "../components/PytorchNodes/StandardNodeTypes";
+import type { Dispatch,SetStateAction } from "react";
 import {
     type Edge,
     type OnNodesChange,
@@ -23,29 +24,42 @@ type ReactflowState={
     onEdgesChange:OnEdgesChange,
     onConnect:OnConnect,
     onReconnect:OnReconnect,
-    setNodes:(nodes:PytorchNode[])=>void,
-    setEdges:(edges:Edge[])=>void,
+    setNodes:Dispatch<SetStateAction<PytorchNode[]>>,//公式のsetと同じ使い心地にした
+    setEdges:Dispatch<SetStateAction<Edge[]>>,
 }
-
-const useReactflowStore=create<ReactflowState>((set,get)=>({
+export const usePytorchGraphStore=create<ReactflowState>((set,get)=>({
     nodes:[],
     edges:[],
     onNodesChange:(changes)=>{
         set({nodes:applyNodeChanges(changes,get().nodes)});
+        console.log("onNodesChange");
     },
     onEdgesChange:(changes)=>{
         set({edges:applyEdgeChanges(changes,get().edges)});
+        console.log("onEdgesChange");
     },
     onConnect:(connection)=>{
         set({edges:addEdge(connection,get().edges)});
+        console.log("onConnect");
+        console.log(get().edges);
     },
     onReconnect:(oldEdge,newConnection)=>{
         set({edges:reconnectEdge(oldEdge,newConnection,get().edges)});
+        console.log("onReconnect");
+        console.log(get().edges);
     },
-    setNodes:(nodes)=>{
-        set({nodes:nodes});
+    setNodes:(nodesOrUpdater)=>{
+        set((state)=>({
+            nodes:typeof nodesOrUpdater==="function"?nodesOrUpdater(state.nodes):nodesOrUpdater
+        }));
+        console.log("setNodes");
+        console.log(get().nodes);
     },
-    setEdges:(edges)=>{
-        set({edges:edges});
-    }
+    setEdges:(edgesOrUpdater)=>{
+        set((state)=>({
+            edges:typeof edgesOrUpdater==="function"?edgesOrUpdater(state.edges):edgesOrUpdater
+        }));
+        console.log("setEdges");
+        console.log(get().nodes);
+    },
 }));
